@@ -8,7 +8,7 @@ The first module of the course provides an introduction to AI coding tools throu
 
 My repo for the workshop is at https://github.com/gdurante2019/AI-Dev-Tools-Intro-Vibe-Coding.  The DataTalksClub workshop repo can be found at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/tree/main/01-overview. 
 ### First project:  Create a to-do app using Django and the AI coding tool of your choice
-I used Claude Code's CLI to create the app, following the homework instructions at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/blob/main/cohorts/2025/01-overview/homework.md.  My project can be found in the TODO directory of this repo.
+I used Claude Code's CLI to create the app, following the homework instructions at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/blob/main/cohorts/2025/01-overview/homework.md.  The code for my project can be found in the TODO directory of this repo.
 
 ## Module 2
 Module 2 has just launched.  Stay tuned...
