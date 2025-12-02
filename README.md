@@ -1,0 +1,1 @@
+This is my repo for my projects for the free AI Dev Tools Zoomcamp course, hosted by DataTalks.Club and taught by Alexey Grigorev. The course launched on November 18, 2025.  More information can be found at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp.
