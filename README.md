@@ -20,4 +20,8 @@ For this module, we are learning how to create an end-to-end application using A
 ### Frontend
 I used Lovable to create the frontend.  
 
+### Optional exercise:  Using Google's Antigravity with GitHub Codespaces
+Antigravity had just come out in December and was a free AI-assisted coding tool, so Alexey showed how to use Antigravity with Codespaces.  It requires a special setup (as does Cursor, apparently) to connect with Codespaces.  Even though VS Code is integrated with Codespaces (so it's simple to connect in VS Code), I love a challenge, and was successful in getting it set up using GitHub CLI and connecting via SSH!
+
+
 (remaining steps in progress...)
