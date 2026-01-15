@@ -11,7 +11,7 @@ I created this game in three different tools:  ChatGPT, Claude Code (CLI version
 My repo for the workshop: https://github.com/gdurante2019/AI-Dev-Tools-Intro-Vibe-Coding.  
 The DataTalksClub workshop repo: https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/tree/main/01-overview. 
 
-### First project:  Create a to-do app using Django and the AI coding tool of your choice
+### First homework assignment:  Create a to-do app using Django and the AI coding tool of your choice
 I used Claude Code's CLI to create the app, following the homework instructions at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/blob/main/cohorts/2025/01-overview/homework.md.  The code for my project can be found in the TODO directory of this repo.
 
 ## Module 2
