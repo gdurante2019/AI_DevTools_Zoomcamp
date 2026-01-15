@@ -15,4 +15,9 @@ The DataTalksClub workshop repo: https://github.com/DataTalksClub/ai-dev-tools-z
 I used Claude Code's CLI to create the app, following the homework instructions at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/blob/main/cohorts/2025/01-overview/homework.md.  The code for my project can be found in the TODO directory of this repo.
 
 ## Module 2 — End-to-End Application (Snake Game)
-For this module, we are creating an end-to-end application using AI tools (in progress).
+For this module, we are learning how to create an end-to-end application using AI tools--creating the frontend, extracting OpenAI specs from the frontend, implementing the backend using FastAPI, adding database support to the backend, containerizing the works, deploying to Render, and creating a CI/CD pipeline for deployment.  
+
+### Frontend
+I used Lovable to create the frontend.  
+
+(remaining steps in progress...)
