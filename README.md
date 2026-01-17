@@ -17,7 +17,7 @@ I used Claude Code's CLI to create the app, following the homework instructions 
 ## Module 2 — End-to-End Application (Snake Game)
 For this module, we are learning how to create an end-to-end application using AI tools--creating the frontend, extracting OpenAI specs from the frontend, implementing the backend using FastAPI, adding database support to the backend, containerizing the works, deploying to Render, and creating a CI/CD pipeline for deployment.  
 
-**Frontend:** I used Lovable to create the frontend.  
+**Frontend:** I used Lovable to create the frontend.  You can create repos for your Lovable projects in GitHub.  My repo for this project is at https://github.com/gdurante2019/snake-social/tree/main. 
 
 **Using Google's Antigravity with GitHub Codespaces (Optional exercise):**
 Antigravity had just come out in December and was a free AI-assisted coding tool, so Alexey showed how to use Antigravity with Codespaces.  It requires a special setup (as does Cursor, apparently) to connect with Codespaces.  Even though VS Code is integrated with Codespaces (so it's simple to connect in VS Code), I love a challenge and decided to take on this optional exercise.  I was successful in getting it set up using GitHub CLI and connecting via SSH!
