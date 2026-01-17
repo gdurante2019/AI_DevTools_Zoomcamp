@@ -22,5 +22,6 @@ For this module, we are learning how to create an end-to-end application using A
 **Using Google's Antigravity with GitHub Codespaces (Optional exercise):**
 Antigravity had just come out in December and was a free AI-assisted coding tool, so Alexey showed how to use Antigravity with Codespaces.  It requires a special setup (as does Cursor, apparently) to connect with Codespaces.  Even though VS Code is integrated with Codespaces (so it's simple to connect in VS Code), I love a challenge and decided to take on this optional exercise.  I was successful in getting it set up using GitHub CLI and connecting via SSH!
 
+**Frontend tests:**  As suggested by Alexey in the video for this section, I asked Antigravity's coding agent to help me run frontend tests.  Antigravity ran the tests (all passed) and provided a "walkthrough" file documenting how to perform these tests.  This file, called "TESTING.md", is included in the frontend directory.
 
 (remaining steps in progress...)
