@@ -26,8 +26,9 @@ Antigravity had just come out in December and was a free AI-assisted coding tool
 
 **Integrating frontend and backend:** 
 * The actual integration of frontend and backend required some back-and-forth with the coding partner, but we (it) were successful in getting it to work.
-* More time-consuming were the edits necessary to both the login functions (which repeatedly threw errors) and the corrections to Spectate mode, game play modes ("Walls" vs. "Infinite"), and Leaderboard display modes.  (I considered switching models to Claude, but decided to stick with Gemini throughout this exercise for consistency's sake.) 
-  * While (well, okay, especially _because_) I am not a full-stack engineer, I reviewed both the fixes proposed by the coding partner and the "thinking" output as well, to understand the steps the agent took to investigated problems and propose fixes.  
+* More time-consuming were the edits necessary to both the login functions (which repeatedly threw errors) and the corrections to Spectate mode, game play modes ("Walls" vs. "Infinite"), and Leaderboard display modes.
+  * I considered switching to Claude, since it seems better at coding than Gemini at present; however, I decided to stick with Gemini throughout this exercise for consistency's sake.
+  * While I am not a full-stack engineer (well, especially _because_ I'm not a full-stack engineer), I reviewed both the fixes proposed by the coding partner and the "thinking" output as well, to understand the steps the agent took to investigated problems and propose fixes.  
   * One interesting thing I noticed in the agent's "thinking" is when the code changes it made to fix one problem caused other problems.  It said to itself, "I've made a horrible mistake."  I wanted to tell it not to be so hard on itself :-D.  In the end, the coding agent was able to repair the code and successfully implement other fixes.  
 
 **Remaining steps in progress...**
