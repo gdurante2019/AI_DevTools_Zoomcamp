@@ -2,6 +2,8 @@
 
 This is my repo for my projects for the *free* AI Dev Tools Zoomcamp course, hosted by DataTalks.Club and taught by Alexey Grigorev. The course launched on November 18, 2025.  More information can be found at https://github.com/DataTalksClub/ai-dev-tools-zoomcamp.
 
+https://github.com/gdurante2019/AI_DevTools_Zoomcamp/tree/main/Module_1/01-TODO-app
+
 ## Module 1 — Introduction to Vibe Coding / AI Tools Overview
 ### Introduction to Vibe Coding (Workshop)
 The first module of the course provides an introduction to AI coding tools through the creation of simple project demos.  During the Introduction to Vibe Coding Workshop, we learned how to use AI coding tools to create the classic "snake" game.  
