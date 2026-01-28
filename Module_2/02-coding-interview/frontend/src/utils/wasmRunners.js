@@ -19,12 +19,23 @@ export async function runJavaScriptWasm(code, { timeoutMs = 2000 } = {}) {
     logs.push(prefix ? `${prefix}${line}` : line);
   };
 
+  // Track all handles so we can dispose them properly
+  const handles = [];
+
   // Expose a minimal "console" into the VM.
   const consoleHandle = vm.newObject();
-  vm.setProp(consoleHandle, 'log', vm.newFunction('log', (...args) => push('', ...args)));
-  vm.setProp(consoleHandle, 'info', vm.newFunction('info', (...args) => push('INFO: ', ...args)));
-  vm.setProp(consoleHandle, 'warn', vm.newFunction('warn', (...args) => push('WARN: ', ...args)));
-  vm.setProp(consoleHandle, 'error', vm.newFunction('error', (...args) => push('ERROR: ', ...args)));
+  handles.push(consoleHandle);
+
+  const logFn = vm.newFunction('log', (...args) => push('', ...args));
+  const infoFn = vm.newFunction('info', (...args) => push('INFO: ', ...args));
+  const warnFn = vm.newFunction('warn', (...args) => push('WARN: ', ...args));
+  const errorFn = vm.newFunction('error', (...args) => push('ERROR: ', ...args));
+  handles.push(logFn, infoFn, warnFn, errorFn);
+
+  vm.setProp(consoleHandle, 'log', logFn);
+  vm.setProp(consoleHandle, 'info', infoFn);
+  vm.setProp(consoleHandle, 'warn', warnFn);
+  vm.setProp(consoleHandle, 'error', errorFn);
   vm.setProp(vm.global, 'console', consoleHandle);
 
   // Crude timeout guard: we can't reliably preempt infinite loops in the same thread,
@@ -49,7 +60,10 @@ export async function runJavaScriptWasm(code, { timeoutMs = 2000 } = {}) {
     return { output: logs.join('\n'), error: null };
   } finally {
     clearTimeout(t);
-    consoleHandle.dispose();
+    // Dispose all handles in reverse order
+    for (let i = handles.length - 1; i >= 0; i--) {
+      handles[i].dispose();
+    }
     vm.dispose();
   }
 }
