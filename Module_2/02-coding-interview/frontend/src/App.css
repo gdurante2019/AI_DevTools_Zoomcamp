@@ -1,0 +1,43 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.editor-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #3e3e3e;
+}
+
+.executor-section {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  background-color: #252526;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  
+  .editor-section {
+    flex: 0 0 60%;
+    border-right: none;
+    border-bottom: 1px solid #3e3e3e;
+  }
+  
+  .executor-section {
+    flex: 1;
+  }
+}
