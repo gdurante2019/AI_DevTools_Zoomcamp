@@ -54,8 +54,21 @@ export async function runJavaScriptWasm(code, { timeoutMs = 2000 } = {}) {
     if (result.error) {
       const err = vm.dump(result.error);
       result.error.dispose();
-      // Handle both string and object errors
-      const errorStr = typeof err === 'string' ? err : (err?.message || JSON.stringify(err));
+      // Handle both string and object errors, with fallback for cyclic objects
+      let errorStr;
+      if (typeof err === 'string') {
+        errorStr = err;
+      } else if (err?.message) {
+        errorStr = err.message;
+      } else if (err?.name && err?.stack) {
+        errorStr = `${err.name}: ${err.stack}`;
+      } else {
+        try {
+          errorStr = JSON.stringify(err);
+        } catch {
+          errorStr = 'An error occurred during code execution';
+        }
+      }
       return { output: logs.join('\n'), error: errorStr };
     }
     result.value?.dispose?.();
