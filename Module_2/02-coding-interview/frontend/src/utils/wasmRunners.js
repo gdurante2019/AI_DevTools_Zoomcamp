@@ -54,7 +54,9 @@ export async function runJavaScriptWasm(code, { timeoutMs = 2000 } = {}) {
     if (result.error) {
       const err = vm.dump(result.error);
       result.error.dispose();
-      return { output: logs.join('\n'), error: String(err) };
+      // Handle both string and object errors
+      const errorStr = typeof err === 'string' ? err : (err?.message || JSON.stringify(err));
+      return { output: logs.join('\n'), error: errorStr };
     }
     result.value?.dispose?.();
     return { output: logs.join('\n'), error: null };
