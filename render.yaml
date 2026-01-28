@@ -2,6 +2,7 @@ services:
   - type: web
     name: coding-interview-platform
     runtime: docker
+    rootDir: Module_2/02-coding-interview
     plan: free
     healthCheckPath: /
     envVars:
