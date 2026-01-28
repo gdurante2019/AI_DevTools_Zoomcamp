@@ -22,14 +22,23 @@ export async function runJavaScriptWasm(code, { timeoutMs = 2000 } = {}) {
   // Track all handles so we can dispose them properly
   const handles = [];
 
+  // Helper to convert QuickJS handles to JS values for logging
+  const dumpArgs = (args) => args.map((handle) => {
+    try {
+      return vm.dump(handle);
+    } catch {
+      return '[unable to serialize]';
+    }
+  });
+
   // Expose a minimal "console" into the VM.
   const consoleHandle = vm.newObject();
   handles.push(consoleHandle);
 
-  const logFn = vm.newFunction('log', (...args) => push('', ...args));
-  const infoFn = vm.newFunction('info', (...args) => push('INFO: ', ...args));
-  const warnFn = vm.newFunction('warn', (...args) => push('WARN: ', ...args));
-  const errorFn = vm.newFunction('error', (...args) => push('ERROR: ', ...args));
+  const logFn = vm.newFunction('log', (...args) => push('', ...dumpArgs(args)));
+  const infoFn = vm.newFunction('info', (...args) => push('INFO: ', ...dumpArgs(args)));
+  const warnFn = vm.newFunction('warn', (...args) => push('WARN: ', ...dumpArgs(args)));
+  const errorFn = vm.newFunction('error', (...args) => push('ERROR: ', ...dumpArgs(args)));
   handles.push(logFn, infoFn, warnFn, errorFn);
 
   vm.setProp(consoleHandle, 'log', logFn);
