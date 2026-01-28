@@ -97,9 +97,15 @@ export async function runPythonWasm(code, { timeoutMs = 5000 } = {}) {
   pyodide.setStdout({ batched: (s) => lines.push(String(s).replace(/\n$/, '')) });
   pyodide.setStderr({ batched: (s) => lines.push(`ERROR: ${String(s).replace(/\n$/, '')}`) });
 
-  // Timeout: Pyodide supports interruption via a "timeout" option on runPythonAsync.
+  // Pyodide doesn't support a timeout option directly on runPythonAsync.
+  // We use Promise.race with a timeout as a simple guard (note: this won't
+  // interrupt infinite loops, but will fail fast for long-running async code).
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error(`Execution timed out after ${timeoutMs}ms`)), timeoutMs)
+  );
+
   try {
-    await pyodide.runPythonAsync(code, { timeout: timeoutMs });
+    await Promise.race([pyodide.runPythonAsync(code), timeoutPromise]);
     return { output: lines.filter(Boolean).join('\n'), error: null };
   } catch (e) {
     return { output: lines.filter(Boolean).join('\n'), error: e?.message ? String(e.message) : String(e) };
