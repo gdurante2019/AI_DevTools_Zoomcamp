@@ -1,63 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './CodeExecutor.css';
-
-// Safe JavaScript execution using Function constructor with limited scope
-function executeJavaScript(code) {
-  try {
-    const logs = [];
-    const originalConsole = console;
-    
-    // Override console methods to capture output
-    const capturedConsole = {
-      log: (...args) => {
-        logs.push(args.map(arg => 
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-        ).join(' '));
-      },
-      error: (...args) => {
-        logs.push('ERROR: ' + args.map(arg => 
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-        ).join(' '));
-      },
-      warn: (...args) => {
-        logs.push('WARN: ' + args.map(arg => 
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-        ).join(' '));
-      },
-      info: (...args) => {
-        logs.push('INFO: ' + args.map(arg => 
-          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-        ).join(' '));
-      },
-    };
-
-    // Create a safe execution context
-    const safeCode = `
-      (function() {
-        const console = {
-          log: (...args) => __captureLog('log', ...args),
-          error: (...args) => __captureLog('error', ...args),
-          warn: (...args) => __captureLog('warn', ...args),
-          info: (...args) => __captureLog('info', ...args),
-        };
-        ${code}
-      })();
-    `;
-
-    // Execute in a try-catch to handle errors
-    const func = new Function('__captureLog', safeCode);
-    func((level, ...args) => {
-      const prefix = level === 'error' ? 'ERROR: ' : level === 'warn' ? 'WARN: ' : level === 'info' ? 'INFO: ' : '';
-      logs.push(prefix + args.map(arg => 
-        typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
-      ).join(' '));
-    });
-
-    return { output: logs.join('\n'), error: null };
-  } catch (error) {
-    return { output: '', error: error.message };
-  }
-}
+import { runJavaScriptWasm, runPythonWasm } from '../utils/wasmRunners';
 
 function CodeExecutor({ code, language }) {
   const [output, setOutput] = useState('');
@@ -83,21 +26,26 @@ function CodeExecutor({ code, language }) {
     setOutput('Executing...\n');
 
     // Use setTimeout to allow UI to update
-    setTimeout(() => {
+    setTimeout(async () => {
       try {
         if (language === 'javascript' || language === 'typescript') {
-          const result = executeJavaScript(code);
+          const result = await runJavaScriptWasm(code, { timeoutMs: 2000 });
+          setOutput(result.output || '(No output)');
+          setError(result.error);
+        } else if (language === 'python') {
+          const result = await runPythonWasm(code, { timeoutMs: 5000 });
           setOutput(result.output || '(No output)');
           setError(result.error);
         } else {
-          // For other languages, show a message
-          setOutput(`Code execution for ${language} is not yet supported in the browser.\n\n` +
-            `Currently, only JavaScript/TypeScript can be executed safely in the browser.\n` +
-            `For other languages, you would need a backend service with proper sandboxing.`);
+          setOutput(
+            `Code execution for ${language} is not supported in-browser yet.\n\n` +
+              `This project executes code using WebAssembly in the browser (no server execution).\n` +
+              `Currently supported: JavaScript (via QuickJS WASM) and Python (via Pyodide WASM).`,
+          );
           setError(null);
         }
       } catch (err) {
-        setError(err.message);
+        setError(err?.message ? String(err.message) : String(err));
         setOutput('');
       } finally {
         setIsExecuting(false);
@@ -142,8 +90,7 @@ function CodeExecutor({ code, language }) {
         </div>
         <div className="executor-info">
           <p className="info-text">
-            <strong>Note:</strong> Code execution is limited to JavaScript/TypeScript for browser safety. 
-            Other languages would require a backend sandbox service.
+            <strong>Note:</strong> Code runs in-browser using WebAssembly (no server execution). Currently supported: JavaScript and Python.
           </p>
         </div>
       </div>

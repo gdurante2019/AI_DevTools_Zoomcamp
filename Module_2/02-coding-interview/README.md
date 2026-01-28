@@ -8,7 +8,7 @@ A real-time collaborative coding interview platform built with React, Vite, Expr
 - ✅ Allow everyone who connects to edit code in the code panel
 - ✅ Show real-time updates to all connected users
 - ✅ Support syntax highlighting for multiple languages (JavaScript, Python, Java, C++, C#, TypeScript, Go, Rust, PHP, Ruby)
-- ✅ Execute code safely in the browser (JavaScript/TypeScript)
+- ✅ Execute code in-browser via WebAssembly (JavaScript, Python)
 
 ## Tech Stack
 
@@ -16,7 +16,7 @@ A real-time collaborative coding interview platform built with React, Vite, Expr
 - **Backend**: Express.js
 - **Real-time Communication**: Socket.io
 - **Code Editor**: Monaco Editor (VS Code editor)
-- **Code Execution**: Browser-based JavaScript execution
+- **Code Execution**: WebAssembly (QuickJS for JavaScript, Pyodide for Python)
 
 ## Project Structure
 
@@ -46,6 +46,27 @@ A real-time collaborative coding interview platform built with React, Vite, Expr
 
 - Node.js (v18 or higher)
 - npm or yarn
+
+## Run frontend + backend together (recommended)
+
+From `Module_2/02-coding-interview/`:
+
+```bash
+npm install
+npm run install:all
+npm run dev
+```
+
+## Docker (single container)
+
+From `Module_2/02-coding-interview/`:
+
+```bash
+docker build -t coding-interview-platform .
+docker run --rm -p 3000:3000 coding-interview-platform
+```
+
+Then open `http://localhost:3000`.
 
 ### Backend Setup
 
@@ -114,9 +135,9 @@ The frontend will run on `http://localhost:5173` by default.
    - Select different programming languages from the dropdown
 
 6. **Execute Code**:
-   - Click "Run Code" to execute JavaScript/TypeScript code
+   - Click "Run Code" to execute JavaScript or Python in the browser (WASM)
    - Output will appear in the right panel
-   - Note: Only JavaScript/TypeScript execution is supported in the browser for safety
+   - Note: This runs entirely in the browser (no server-side execution)
 
 ## Environment Variables
 
@@ -128,12 +149,11 @@ You can set the following environment variables:
 
 ## Code Execution Safety
 
-The platform currently supports browser-based execution for JavaScript/TypeScript only. This is done safely using:
-- Function constructor with limited scope
-- Console output capture
-- Error handling
+The platform executes code **only in the browser** using WebAssembly:
+- **JavaScript**: QuickJS (WASM)
+- **Python**: Pyodide (WASM)
 
-For other languages (Python, Java, etc.), you would need a backend service with proper sandboxing (e.g., Docker containers, isolated execution environments).
+This avoids executing untrusted candidate code on your server.
 
 ## Future Enhancements
 

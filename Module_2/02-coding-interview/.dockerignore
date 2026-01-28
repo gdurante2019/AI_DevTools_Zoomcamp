@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+**/.vite
+**/.cache
+**/*.log
+.git
+.gitignore
+.DS_Store
+backend/tests
+backend/vitest.config.js
+backend/.env
+frontend/.env
+npm-debug.log
+

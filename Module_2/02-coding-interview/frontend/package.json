@@ -12,7 +12,8 @@
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.7.2",
     "@monaco-editor/react": "^4.6.0",
-    "monaco-editor": "^0.45.0"
+    "monaco-editor": "^0.45.0",
+    "quickjs-emscripten": "^0.31.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

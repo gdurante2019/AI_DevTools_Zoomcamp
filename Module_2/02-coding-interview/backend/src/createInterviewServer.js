@@ -3,6 +3,9 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 function removeParticipantFromRoom({ io, socket, rooms, roomId }) {
   const room = rooms.get(roomId);
@@ -33,7 +36,10 @@ function removeParticipantFromRoom({ io, socket, rooms, roomId }) {
   }
 }
 
-export function createInterviewServer({ frontendUrl = 'http://localhost:5173' } = {}) {
+export function createInterviewServer({
+  frontendUrl = 'http://localhost:5173',
+  staticDir = null,
+} = {}) {
   const app = express();
   const httpServer = createServer(app);
   const io = new Server(httpServer, {
@@ -45,6 +51,21 @@ export function createInterviewServer({ frontendUrl = 'http://localhost:5173' } 
 
   app.use(cors());
   app.use(express.json());
+
+  // If provided, serve the built frontend from disk (single-container deployment).
+  if (staticDir) {
+    app.use(express.static(staticDir));
+
+    // SPA fallback for deep links like /?room=abcd
+    app.get('*', (req, res, next) => {
+      // Don't swallow API routes
+      if (req.path.startsWith('/api')) return next();
+
+      const indexPath = path.join(staticDir, 'index.html');
+      if (!fs.existsSync(indexPath)) return next();
+      return res.sendFile(indexPath);
+    });
+  }
 
   // Store active rooms and their code
   const rooms = new Map();
