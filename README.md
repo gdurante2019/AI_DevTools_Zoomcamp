@@ -14,7 +14,7 @@ I used Claude Code's CLI to create the app.  The code for my project can be foun
 ## Module 2 — End-to-End Application (Snake Game)
 **Exercises can be found at** https://github.com/gdurante2019/AI_DevTools_Zoomcamp/tree/main/Module_2
 
-For this module, we are learning how to create an end-to-end application using AI tools--creating the frontend, extracting OpenAI specs from the frontend, implementing the backend using FastAPI, adding database support to the backend, containerizing the works, deploying to Render, and creating a CI/CD pipeline for deployment (in progress).
+For this module, we learned how to create an end-to-end application using AI tools--creating the frontend, extracting OpenAI specs from the frontend, implementing the backend using FastAPI, adding database support to the backend, containerizing the works, deploying to Render, and creating a CI/CD pipeline for deployment.
 
 ## Module 3 — Model Context Protocol
 (Update forthcoming...)
